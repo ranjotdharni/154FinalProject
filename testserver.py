@@ -25,11 +25,14 @@ def handle_request(connectionSocket):
         headers = "HTTP/1.1 200 OK\r\n" + "Content-Type: text/html\r\n\r\n"
         # Fill in end
 
-        r = b'GET http://google.com HTTP/1.1\n\n'
-        s = socket(AF_INET, SOCK_STREAM)
-        s.connect(('google.com', 80))
-        s.send(r)
-        print(s.recv(4096).decode())
+        r = b'GET http://www.google.com HTTP/1.1\n\n'
+        
+        for i in range(0, 9):
+            s = socket(AF_INET, SOCK_STREAM)
+            s.connect(('www.google.com', 80))
+            s.send(r)
+            print(s.recv(4096).decode())
+            s.close()
 
         # Get the requested file from the message
         filename = message.split()[1][1:]
