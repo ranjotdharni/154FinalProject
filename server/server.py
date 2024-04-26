@@ -2,7 +2,7 @@
 from socket import *
 
 # Import sys package if you want to terminate the program
-import sys
+import os
 
 def create_server_socket(port):
     # Prepare a sever socket
@@ -18,7 +18,7 @@ def handle_request(connectionSocket):
     try:
         # Receive the HTTP request
         message = connectionSocket.recv(2048).decode()
-        print("Here")
+        print("Here in Server")
         print(message)
         # Prepare HTTP response header
         # Fill in start
@@ -27,11 +27,11 @@ def handle_request(connectionSocket):
 
         r = b'GET http://www.google.com HTTP/1.1\n\n'
         
-        for i in range(0, 9):
+        for i in range(0, 14):
             s = socket(AF_INET, SOCK_STREAM)
             s.connect(('www.google.com', 80))
             s.send(r)
-            print(s.recv(4096).decode())
+            s.recv(4096).decode()
             s.close()
 
         # Get the requested file from the message
@@ -89,7 +89,7 @@ def handle_request(connectionSocket):
         # Close socket
         # Fill in start
         connectionSocket.close()
-        # Fill in end
+        print("#Server Conn Closed#")
 
 
 if __name__ == "__main__":
