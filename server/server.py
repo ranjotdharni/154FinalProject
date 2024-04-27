@@ -35,7 +35,7 @@ def handle_request(connectionSocket):
             s.close()
 
         # Get the requested file from the message
-        filename = message.split()[1][1:]
+        filename = 'home.html'
         # Open the requested file and get the HTML body content
         # Fill in start
         with open(filename, 'r') as temp:
@@ -76,7 +76,7 @@ def handle_request(connectionSocket):
                 <title>Error 404</title>
             </head>
 
-            <body><h1>Error 404: The requested file (""" + filename + """) was not found.</h1></body>
+            <body><h1>Error 404: The requested file was not found.</h1></body>
             </html>
         """
         # Fill in end

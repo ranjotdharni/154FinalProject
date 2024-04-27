@@ -1,0 +1,47 @@
+version: '0.1'
+
+services:
+  keydb:
+    image: eqalpha/keydb
+    depends_on:
+      - firewall
+      - server
+      - proxy
+    environment:
+      - FIREWALL_SIGNATURE=ilikeeggs
+      - FIREWALL_LOCATION=firewall:3000
+      - SERVER_LOCATION=server:12000
+      - PROXY_LOCATION=proxy:8000
+      - DB_LOCATION=keydb:6379
+
+  firewall:
+    build: ./firewall
+    ports:
+      - 3000:3000
+    environment:
+      - FIREWALL_SIGNATURE=ilikeeggs
+      - FIREWALL_LOCATION=firewall:3000
+      - SERVER_LOCATION=server:12000
+      - PROXY_LOCATION=proxy:8000
+      - DB_LOCATION=keydb:6379
+      - PYTHONUNBUFFERED=1
+
+  server: 
+    build: ./server
+    environment:
+      - FIREWALL_SIGNATURE=ilikeeggs
+      - FIREWALL_LOCATION=firewall:3000
+      - SERVER_LOCATION=server:12000
+      - PROXY_LOCATION=proxy:8000
+      - DB_LOCATION=keydb:6379
+      - PYTHONUNBUFFERED=1
+
+  proxy: 
+    build: ./proxy 
+    environment:
+      - FIREWALL_SIGNATURE=ilikeeggs
+      - FIREWALL_LOCATION=firewall:3000
+      - SERVER_LOCATION=server:12000
+      - PROXY_LOCATION=proxy:8000
+      - DB_LOCATION=keydb:6379
+      - PYTHONUNBUFFERED=1

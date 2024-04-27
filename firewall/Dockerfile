@@ -1,9 +1,11 @@
 FROM python:3.11
 
-WORKDIR /server
+WORKDIR /firewall
 
 COPY . .
 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "-u", "server.py" ]
+EXPOSE 3000
+
+CMD [ "python", "-u", "firewall.py" ]
